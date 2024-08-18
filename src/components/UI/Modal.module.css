@@ -10,15 +10,24 @@
 
 .modal {
   position: fixed;
-  top: 20vh;
+  top: 15vh;
   left: 5%;
   width: 90%;
-  background-color: #fff;
+  height: 30rem;
+  overflow-y: auto;
+  background-color: white;
   padding: 1rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
-  animation: slide-down 400ms ease-out forwards;
+  animation: slide-down 300ms ease-out forwards;
+  -ms-overflow-style: none; /* hide scrollbar for IE and edge */
+  scrollbar-width: none; /* hide scrollbar for Firefox */
+}
+
+/* hide scrollbar for chrome, safari and opera */
+.modal::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -33,7 +42,6 @@
     opacity: 0;
     transform: translateY(-3rem);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
