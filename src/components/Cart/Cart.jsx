@@ -12,6 +12,7 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [error, setError] = useState(null);
 
   const totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
   const hasItem = ctx.items.length > 0;
@@ -62,8 +63,9 @@ const Cart = (props) => {
 
       setDidSubmit(true);
       ctx.clearCart();
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
       setDidSubmit(false);
     }
 
@@ -112,11 +114,23 @@ const Cart = (props) => {
     </>
   );
 
+  const errorModalContent = (
+    <>
+      <p>{error}</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.close}>
+          Close
+        </button>
+      </div>
+    </>
+  );
+
   return (
     <Modal close={props.close}>
-      {!isSubmitting && !didSubmit && cartModalContent}
-      {isSubmitting && isSubmittingModalContent}
-      {!isSubmitting && didSubmit && didSubmitModalContent}
+      {!error && !isSubmitting && !didSubmit && cartModalContent}
+      {!error && isSubmitting && isSubmittingModalContent}
+      {!error && !isSubmitting && didSubmit && didSubmitModalContent}
+      {error && errorModalContent}
     </Modal>
   );
 };
