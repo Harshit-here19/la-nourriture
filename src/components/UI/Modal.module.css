@@ -13,7 +13,7 @@
   top: 15vh;
   left: 5%;
   width: 90%;
-  height: 30rem;
+  max-height: 30rem;
   overflow-y: auto;
   background-color: white;
   padding: 1rem;
