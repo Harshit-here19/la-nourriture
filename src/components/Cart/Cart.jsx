@@ -41,6 +41,19 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
+  const submitOrderHandler = (userData) => {
+    fetch(
+      "https://la-nourriture-5750d-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderItems: ctx.items,
+        }),
+      }
+    );
+  };
+
   const modalActions = (
     <div className={classes.actions}>
       <button className={classes["button--alt"]} onClick={props.close}>
@@ -62,7 +75,9 @@ const Cart = (props) => {
         <span>{totalAmount}</span>
       </div>
 
-      {isCheckout && <Checkout onClose={props.close} />}
+      {isCheckout && (
+        <Checkout onClose={props.close} onConfirm={submitOrderHandler} />
+      )}
 
       {!isCheckout && modalActions}
     </Modal>
